@@ -4,11 +4,12 @@ using MegaCrit.Sts2.Core.Multiplayer.Transport;
 
 namespace SlayTheSpire2.LAN.Multiplayer.Models
 {
-    public struct LanPlayerNameRequestMessage : INetMessage
+    public struct LanPlayerNameRequestMessage : INetMessage, IPacketSerializable
     {
         public string playerName;
 
         public bool ShouldBroadcast => false;
+        public bool ShouldBuffer => false;
         public NetTransferMode Mode => NetTransferMode.Reliable;
         public LogLevel LogLevel => LogLevel.Info;
 

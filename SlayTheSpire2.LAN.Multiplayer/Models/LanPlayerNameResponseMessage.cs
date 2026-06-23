@@ -5,17 +5,19 @@ using SlayTheSpire2.LAN.Multiplayer.Helpers;
 
 namespace SlayTheSpire2.LAN.Multiplayer.Models
 {
-    public struct LanPlayerNameResponseMessage : INetMessage
+    public struct LanPlayerNameResponseMessage : INetMessage, IPacketSerializable
     {
         public PlayerNames playerNames;
 
         public bool ShouldBroadcast => false;
+        public bool ShouldBuffer => false;
         public NetTransferMode Mode => NetTransferMode.Reliable;
         public LogLevel LogLevel => LogLevel.Info;
 
         public void Serialize(PacketWriter writer)
         {
             PacketHelper.WriteVarInt(writer, (uint)playerNames.Count);
+
             foreach (var keyValue in playerNames)
             {
                 writer.WriteULong(keyValue.Key);
@@ -27,6 +29,7 @@ namespace SlayTheSpire2.LAN.Multiplayer.Models
         {
             var count = PacketHelper.ReadVarInt(reader);
             playerNames = new PlayerNames();
+
             for (var i = 0; i < count; i++)
             {
                 playerNames.Add(reader.ReadULong(), reader.ReadString());
@@ -34,3 +37,4 @@ namespace SlayTheSpire2.LAN.Multiplayer.Models
         }
     }
 }
+

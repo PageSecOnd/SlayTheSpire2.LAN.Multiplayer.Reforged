@@ -15,7 +15,11 @@ using SlayTheSpire2.LAN.Multiplayer.Services;
 
 namespace SlayTheSpire2.LAN.Multiplayer.Patchs
 {
-    [HarmonyPatch(typeof(RunSaveManager), "SaveRun")]
+    [HarmonyPatch(
+        typeof(RunSaveManager),
+        nameof(RunSaveManager.SaveRun),
+        new[] { typeof(AbstractRoom) }
+    )]
     internal class RunSaveManagerSaveRunPatch
     {
         private static bool Prefix(RunSaveManager __instance, AbstractRoom? preFinishedRoom, bool ____forceSynchronous,

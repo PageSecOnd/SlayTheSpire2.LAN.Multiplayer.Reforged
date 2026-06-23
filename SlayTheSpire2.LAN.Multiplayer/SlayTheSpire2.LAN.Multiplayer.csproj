@@ -1,30 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+  <TargetFramework>net9.0</TargetFramework>
+  <ImplicitUsings>enable</ImplicitUsings>
+  <Nullable>enable</Nullable>
+  <AssemblyVersion>1.6.3.1</AssemblyVersion>
+  <FileVersion>1.6.3.1</FileVersion>
+  <GodotDisabledSourceGenerators>ScriptPathAttribute</GodotDisabledSourceGenerators>
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <AssemblyVersion>1.6.3.0</AssemblyVersion>
-    <FileVersion>1.6.3.0</FileVersion>
-  </PropertyGroup>
+  <Sts2Dir>E:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64</Sts2Dir>
+</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Godot.SourceGenerators" Version="4.5.1" />
-  </ItemGroup>
+<ItemGroup>
+  <PackageReference Include="Godot.SourceGenerators" Version="4.5.1" />
+  <CompilerVisibleProperty Include="GodotDisabledSourceGenerators" />
+</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>V:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="GodotSharp">
-      <HintPath>V:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\GodotSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Steamworks.NET">
-      <HintPath>V:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\Steamworks.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="sts2">
-      <HintPath>V:\SteamLibrary\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+<ItemGroup>
+  <Reference Include="0Harmony">
+    <HintPath>$(Sts2Dir)\0Harmony.dll</HintPath>
+    <Private>false</Private>
+  </Reference>
 
+  <Reference Include="GodotSharp">
+    <HintPath>$(Sts2Dir)\GodotSharp.dll</HintPath>
+    <Private>false</Private>
+  </Reference>
+
+  <Reference Include="Steamworks.NET">
+    <HintPath>$(Sts2Dir)\Steamworks.NET.dll</HintPath>
+    <Private>false</Private>
+  </Reference>
+
+  <Reference Include="sts2">
+    <HintPath>$(Sts2Dir)\sts2.dll</HintPath>
+    <Private>false</Private>
+  </Reference>
+</ItemGroup>
 </Project>
