@@ -2,7 +2,53 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is loosely based on Keep a Changelog.
+The format is loosely based on Keep a Changelog, and this project follows Semantic Versioning where practical.
+
+---
+
+## [1.1.1] - 2026-06-24
+
+### Fixed
+
+* Fixed untranslated LAN settings when ModConfig is not installed.
+* Fixed raw localization keys being displayed in the fallback settings interface, including:
+
+```text
+settings_ui.SlayTheSpire2.LAN.Multiplayer.Reforged.HOST_PORT
+settings_ui.SlayTheSpire2.LAN.Multiplayer.Reforged.HOST_MAX_PLAYERS
+settings_ui.SlayTheSpire2.LAN.Multiplayer.Reforged.PLAYER_NAME
+settings_ui.SlayTheSpire2.LAN.Multiplayer.Reforged.NET_ID
+```
+
+* Fixed mismatches between localization keys referenced by the DLL and entries contained in the PCK resource package.
+* Fixed localization resources still using the original project identifier.
+* Fixed the internal PCK resource directory still using:
+
+```text
+SlayTheSpire2.LAN.Multiplayer
+```
+
+instead of:
+
+```text
+SlayTheSpire2.LAN.Multiplayer.Reforged
+```
+
+* Fixed incorrectly repacked resource files using the older Godot Pack V2 format.
+
+### Changed
+
+* Migrated localization paths and keys to the Reforged project identifier.
+* Rebuilt the PCK resource package using Godot 4.5.1 Pack V3.
+* Updated translated LAN menu and settings resources.
+* Ensured that the DLL and PCK use matching Reforged localization identifiers.
+
+### Notes
+
+* This is a localization hotfix for v1.1.0.
+* BaseLib remains a required dependency.
+* ModConfig remains optional.
+* Players using v1.1.0 should update to v1.1.1, especially when using the original fallback settings interface without ModConfig.
 
 ---
 
@@ -10,37 +56,60 @@ The format is loosely based on Keep a Changelog.
 
 ### Added
 
+* Added BaseLib integration.
 * Added optional ModConfig integration.
-* Added a dedicated ModConfig settings section when ModConfig is installed.
-* Added configurable default LAN port through ModConfig.
-* Added configurable maximum player count through ModConfig.
-* Added configurable connection timeout through ModConfig.
-* Added configurable default server address through ModConfig.
-* Added option to remember or ignore the last joined server address.
-* Added configurable player name through ModConfig.
-* Added configurable preferred Net ID through ModConfig.
+* Added a dedicated LAN Multiplayer configuration section when ModConfig is installed.
+* Added configurable default LAN port.
+* Added configurable maximum player count.
+* Added configurable connection timeout.
+* Added configurable default server address.
+* Added an option to remember the last joined server address.
+* Added configurable player name.
+* Added configurable preferred Net ID.
 
 ### Changed
 
-* Kept the original `lan_settings.json` configuration file as the runtime settings backend.
-* ModConfig values are synchronized back to the existing LAN settings model.
-* The original in-game settings injection is kept as a fallback when ModConfig is not installed.
-* When ModConfig is available, duplicated legacy settings entries are hidden from the normal settings page.
-* Join address handling now respects the configured default LAN port when no explicit port is provided.
-* Connection timeout is now read from the LAN settings model instead of being hardcoded.
+* BaseLib is now a required dependency.
+* Kept the original LAN settings system as the runtime configuration backend.
+* ModConfig values are synchronized with the existing LAN settings model.
+* The original in-game settings interface remains available when ModConfig is not installed.
+* Legacy settings entries are hidden when ModConfig is available to prevent duplicated configuration controls.
+* Join connections now use the configured default LAN port when no explicit port is entered.
+* Connection timeout is now read from the LAN settings model instead of using a hardcoded value.
+* Updated the project identifier, assembly name, namespace and resource references to:
+
+```text
+SlayTheSpire2.LAN.Multiplayer.Reforged
+```
 
 ### Fixed
 
-* Prevented duplicated LAN settings UI entries when ModConfig is installed.
-* Improved consistency between the join screen, saved settings, and ModConfig values.
-* Reduced the need to manually edit `lan_settings.json` for common LAN multiplayer options.
+* Prevented duplicated LAN settings entries when ModConfig is installed.
+* Improved synchronization between ModConfig, the fallback settings interface and the existing LAN settings file.
+* Improved handling of remembered join addresses.
+* Reduced the need to manually edit LAN configuration files.
+
+### Known Issues
+
+* When ModConfig is not installed, some entries in the original fallback settings interface may display untranslated localization keys instead of readable text.
+* This issue does not prevent the multiplayer functionality from working.
+* The localization issue is fixed in v1.1.1.
+
+### Dependencies
+
+Required:
+
+* BaseLib
+
+Optional:
+
+* ModConfig
 
 ### Notes
 
-* ModConfig support is optional.
-* This mod does not directly require BaseLib or ModConfig to launch.
-* If ModConfig is not installed, the mod should continue to work using its existing settings behavior.
-* ModConfig may have its own dependencies depending on how it is installed.
+* ModConfig is not required to use the mod.
+* Without ModConfig, the original in-game settings interface is used.
+* BaseLib is required in all cases.
 
 ---
 
@@ -63,23 +132,17 @@ Initial release of **SlayTheSpire2.LAN.Multiplayer.Reforged**.
 ### Fixed
 
 * Fixed compatibility issues caused by changes to the INetMessage interface.
-* Fixed runtime errors related to missing ShouldBuffer implementations.
-* Fixed ThemeConstants API incompatibilities introduced by newer game versions.
+* Fixed missing ShouldBuffer implementations.
+* Fixed ThemeConstants API incompatibilities.
 * Fixed Harmony patch failures caused by RunSaveManager method signature changes.
 * Fixed compilation failures caused by outdated game API references.
-* Fixed multiple startup and runtime crashes caused by internal engine updates.
+* Fixed startup and runtime crashes caused by internal game updates.
 
 ### Changed
 
 * Renamed the project to SlayTheSpire2.LAN.Multiplayer.Reforged.
 * Updated internal patches to match current Slay the Spire 2 APIs.
-* Improved overall compatibility with modern game builds.
-
-### Notes
-
-* This release focuses on restoring functionality and compatibility.
-* Multiplayer behavior remains consistent with the original project whenever possible.
-* All players should use the same game version, mod version, and gameplay-affecting mods when playing together.
+* Improved compatibility with modern game builds.
 
 ---
 
