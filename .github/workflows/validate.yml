@@ -1,0 +1,103 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check repository files
+        shell: pwsh
+        run: |
+          $requiredFiles = @(
+            "README.md",
+            "README.zh-CN.md",
+            "CHANGELOG.md",
+            "LICENSE"
+          )
+
+          foreach ($file in $requiredFiles) {
+            if (-not (Test-Path $file)) {
+              Write-Error "Missing required file: $file"
+            }
+          }
+
+      - name: Check forbidden game assemblies
+        shell: pwsh
+        run: |
+          $forbidden = Get-ChildItem -Recurse -File -Include `
+            "sts2.dll", `
+            "GodotSharp.dll", `
+            "Steamworks.NET.dll", `
+            "0Harmony.dll"
+
+          if ($forbidden.Count -gt 0) {
+            Write-Host "Forbidden game/runtime assemblies found:"
+            $forbidden | ForEach-Object { Write-Host $_.FullName }
+            Write-Error "Do not commit game or runtime DLLs to the repository."
+          }
+
+      - name: Check Markdown files
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Recurse -File -Include "*.md"
+
+          foreach ($file in $files) {
+            $content = Get-Content $file.FullName -Raw
+
+            if ($content -match "`t") {
+              Write-Warning "$($file.FullName) contains tab characters."
+            }
+
+            if ($content -match "SlayTheSpire2\.LAN\.Multiplayer[^.\w]") {
+              Write-Warning "$($file.FullName) may still mention the old project name."
+            }
+          }
+
+      - name: Validate mod manifest JSON
+        shell: pwsh
+        run: |
+          $manifestCandidates = Get-ChildItem -Recurse -File -Filter "mod_manifest.json"
+
+          if ($manifestCandidates.Count -eq 0) {
+            Write-Warning "No mod_manifest.json found."
+            exit 0
+          }
+
+          foreach ($manifest in $manifestCandidates) {
+            Write-Host "Validating $($manifest.FullName)"
+
+            try {
+              $json = Get-Content $manifest.FullName -Raw | ConvertFrom-Json
+            }
+            catch {
+              Write-Error "Invalid JSON: $($manifest.FullName)"
+            }
+
+            if (-not $json.id) {
+              Write-Error "$($manifest.FullName) is missing 'id'."
+            }
+
+            if (-not $json.name -and -not $json.title) {
+              Write-Error "$($manifest.FullName) is missing 'name' or 'title'."
+            }
+
+            if ($json.id -and $json.id -notmatch "Reforged") {
+              Write-Warning "$($manifest.FullName) id does not contain 'Reforged'."
+            }
+          }
+
+      - name: Validation complete
+        shell: pwsh
+        run: |
+          Write-Host "Repository validation completed."
