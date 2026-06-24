@@ -237,6 +237,8 @@ All participants should use matching mod versions and load order.
 
 ![Screenshot 5](Screenshot/screenshot5.png)
 
+![Screenshot 6](Screenshot/screenshot6.png)
+
 ---
 
 ## Contributing

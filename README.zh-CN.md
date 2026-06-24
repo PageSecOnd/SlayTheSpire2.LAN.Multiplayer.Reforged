@@ -237,6 +237,8 @@ bin/Release/net9.0/
 
 ![Screenshot 5](Screenshot/screenshot5.png)
 
+![Screenshot 6](Screenshot/screenshot6.png)
+
 ---
 
 ## 贡献
