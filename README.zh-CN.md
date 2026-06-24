@@ -2,7 +2,7 @@
 
 ![LAN Multiplayer](mod_image.png)
 
-一个面向 **《杀戮尖塔 2》** 的 **SlayTheSpire2.LAN.Multiplayer** 社区维护版 Fork。
+一个面向 **《杀戮尖塔 2》** 的 **SlayTheSpire2.LAN.Multiplayer.Reforged** 社区维护版 Fork。
 
 本项目旨在让原版 LAN Multiplayer Mod 持续兼容新版《杀戮尖塔 2》，同时尽可能保持原有的联机体验与游戏玩法不变。
 
@@ -173,13 +173,13 @@ cd SlayTheSpire2.LAN.Multiplayer.Reforged
 
 ```powershell
 dotnet restore
-dotnet build .\SlayTheSpire2.LAN.Multiplayer.sln -c Release
+dotnet build .\SlayTheSpire2.LAN.Multiplayer.Reforged.sln -c Release
 ```
 
 生成的 DLL 通常位于：
 
 ```text
-SlayTheSpire2.LAN.Multiplayer/
+SlayTheSpire2.LAN.Multiplayer.Reforged/
 bin/Release/net9.0/
 ```
 

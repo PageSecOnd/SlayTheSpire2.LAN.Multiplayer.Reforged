@@ -1,0 +1,49 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore
+        run: dotnet restore .\SlayTheSpire2.LAN.Multiplayer.Reforged.sln
+
+      - name: Build Release
+        run: dotnet build .\SlayTheSpire2.LAN.Multiplayer.Reforged.sln -c Release --no-restore
+
+      - name: Prepare artifact
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path .\artifact\SlayTheSpire2.LAN.Multiplayer.Reforged
+
+          Copy-Item .\SlayTheSpire2.LAN.Multiplayer.Reforged\bin\Release\net9.0\SlayTheSpire2.LAN.Multiplayer.Reforged.dll .\artifact\SlayTheSpire2.LAN.Multiplayer.Reforged\
+
+          if (Test-Path .\mod_manifest.json) {
+            Copy-Item .\mod_manifest.json .\artifact\SlayTheSpire2.LAN.Multiplayer.Reforged\
+          }
+
+          if (Test-Path .\SlayTheSpire2.LAN.Multiplayer.Reforged.pck) {
+            Copy-Item .\SlayTheSpire2.LAN.Multiplayer.Reforged.pck .\artifact\SlayTheSpire2.LAN.Multiplayer.Reforged\
+          }
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SlayTheSpire2.LAN.Multiplayer.Reforged
+          path: artifact/

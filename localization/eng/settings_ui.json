@@ -1,6 +1,6 @@
 {
-    "SlayTheSpire2.LAN.Multiplayer.HOST_PORT": "Host Port",
-    "SlayTheSpire2.LAN.Multiplayer.HOST_MAX_PLAYERS": "Host Max Players",
-    "SlayTheSpire2.LAN.Multiplayer.PLAYER_NAME": "Player Name",
-    "SlayTheSpire2.LAN.Multiplayer.NET_ID": "NetID"
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.HOST_PORT": "Host Port",
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.HOST_MAX_PLAYERS": "Host Max Players",
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.PLAYER_NAME": "Player Name",
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.NET_ID": "NetID"
 }

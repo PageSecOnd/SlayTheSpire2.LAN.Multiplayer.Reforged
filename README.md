@@ -173,13 +173,13 @@ Build:
 
 ```powershell
 dotnet restore
-dotnet build .\SlayTheSpire2.LAN.Multiplayer.sln -c Release
+dotnet build .\SlayTheSpire2.LAN.Multiplayer.Reforged.sln -c Release
 ```
 
 The compiled DLL will normally be located at:
 
 ```text
-SlayTheSpire2.LAN.Multiplayer/
+SlayTheSpire2.LAN.Multiplayer.Reforged/
 bin/Release/net9.0/
 ```
 

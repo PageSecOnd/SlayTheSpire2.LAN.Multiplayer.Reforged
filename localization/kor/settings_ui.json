@@ -1,6 +1,6 @@
 {
-    "SlayTheSpire2.LAN.Multiplayer.HOST_PORT": "호스트 포트",
-    "SlayTheSpire2.LAN.Multiplayer.HOST_MAX_PLAYERS": "호스트 최대 인원",
-    "SlayTheSpire2.LAN.Multiplayer.PLAYER_NAME": "플레이어 이름",
-    "SlayTheSpire2.LAN.Multiplayer.NET_ID": "NetID"
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.HOST_PORT": "호스트 포트",
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.HOST_MAX_PLAYERS": "호스트 최대 인원",
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.PLAYER_NAME": "플레이어 이름",
+    "SlayTheSpire2.LAN.Multiplayer.Reforged.NET_ID": "NetID"
 }
